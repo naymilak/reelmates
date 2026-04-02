@@ -1,0 +1,35 @@
+]] ISKANJE DRUGIH UPORABNIKOV [[
+
+unikatni tag + iskalnik uporabnikov (lahko ločen vnos ali zavihek “Uporabniki”), 
+javni profil na URL-ju tipa /u/gametag. Brez seznama prijateljev
+
+
+]] NAMEN [[
+
+Aplikacija omogoča registriranim uporabnikom iskanje filmov prek TMDB, 
+vodenje osebnega watchlista in seznama ogledanih z oceno 1–10, 
+pregled lastne statistike ter ogled javnih, vedno odprtih profilov drugih uporabnikov, 
+kjer so vidni le ogledani filmi in njihove ocene, odkritih prek unikatnega tag-a.
+
+]] MSC [[
+
+MUST (obvezno)	
+-Registracija, prijava, odjava; email + geslo; avtentikacija z JWT ali sejo (ena izbrana strategija).
+-Unikatni gametag (prikazno/iskalno ime) ob registraciji ali v profilu.
+-Iskanje filmov prek TMDB z predlogi med tipkanjem (autocomplete/debounce), rezultati in podrobnosti filma.
+-Watchlist: dodaj / odstrani; brez ocene.
+-Watched: film z eno oceno 1–10 na uporabnika; brez večkratnega “ogledanega” zapisa; uredi oceno za isti film.
+-Dva toka v watched: (a) iskanje → dodaj v watched → popup ocena; (b) film na watchlistu → gumb watched → popup ocena → premik v watched.
+-Javni profil je vedno: drugi vidijo samo watched + ocene, ne watchlist.
+-Iskanje uporabnikov po gametag-u (ali enakovreden jasen način) in prikaz tujega javnega profila.
+-Na osebnem profilu so statistike samo številke: število ogledanih filmov, število ocenjenih filmov, število filmov na watchlistu (want to watch).
+-Full-stack: React, Node.js, relacijska baza.
+-Brez administratorske vloge.
+SHOULD (smiselno, če zmanjka časa, najprej obrežeta COULD)
+-Omejitev in obravnava napak TMDB (rate limit, timeout); osnovni cache pogosto prikazanih podatkov v DB.
+-Osnovna validacija in varnost (hash gesla, zaščiten JWT/seja, smiselni CORS).
+-Nekaj API testov na ključnih backend poteh.
+COULD (razširitve, če ostane čas)
+-Filtri po letu/žanru v iskanju (če TMDB to podpira v vaši integraciji).
+-“Zadnje aktivnosti” / feed na profilu.
+-Izvoz statistike (CSV).
