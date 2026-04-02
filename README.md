@@ -1,59 +1,41 @@
-# ReelMates — sledilnik filmov
+# ReelMates
 
-[![Node](https://img.shields.io/badge/node-%3E%3D20-339933?logo=nodedotjs&logoColor=white)](https://nodejs.org/)
-[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+Majhen full-stack projekt: sledenje filmom. Iščeš po TMDB, dodaš na watchlist al med ogledane z oceno, drugi te najdejo po gametag-u in vidijo samo kaj si gledal.
 
-**Kratek opis:** Spletna aplikacija za iskanje filmov (TMDB), osebni **watchlist**, seznam **ogledanih z oceno 1–10**, **osebna statistika** (tri številke) in **javni profil** po **gametag-u**, kjer drugi vidijo le ogledano z ocenami. Full-stack: **React (Vite)**, **Node.js (Express)**, **PostgreSQL**.
+**Stack:** React (Vite) + TypeScript, Node (Express), PostgreSQL.
 
----
-
-## Dokumentacija
-
-| Dokument | Vsebina |
-|----------|---------|
-| [**docs/PROJEKT.md**](docs/PROJEKT.md) | Podroben opis zahtev, arhitekture, TMDB, statistike (tudi odgovor za mentorja), podatkovni model, načrt |
+Več v smislu „kaj točno delava“ je v [**docs/PROJEKT.md**](docs/PROJEKT.md).
 
 ---
 
-## Struktura repozitorija
+## Mape
 
 ```
-├── frontend/          # React + TypeScript (Vite)
-├── backend/           # Express REST API
-├── docs/              # Specifikacija in zapisnik
-├── .gitignore
-├── LICENSE
-└── README.md
+frontend/   → UI
+backend/    → API
+docs/       → opis projekta
 ```
 
 ---
 
-## Zagon lokalno
+## Kako zaženeš lokalno
 
-**Zahteve:** Node.js 20+ (priporočeno), npm.
+Rabiš Node 20+ in npm.
 
 ```bash
-# terminal 1 — API
+# API
 cd backend
-copy .env.example .env    # Windows; nato uredite vrednosti
+copy .env.example .env   # Windows, potem dopolnit ključe ko bosta
 npm run dev
 
-# terminal 2 — UI
+# drug terminal — frontend
 cd frontend
 npm install
 npm run dev
 ```
 
-- Frontend: običajno `http://localhost:5173`
-- API health: `GET http://localhost:3001/api/health`
-
----
-
-## Ekipa
-
-- *(dodajta imeni / gametaga)*
-- Repozitorij: *(po ustvaritvi na GitHubu zamenjajta z resnično povezavo)*
+Frontend: http://localhost:5173  
+Health check: http://localhost:3001/api/health
 
 ---
 
