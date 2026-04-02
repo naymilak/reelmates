@@ -1,7 +1,7 @@
 ]] ISKANJE DRUGIH UPORABNIKOV [[
 
-unikatni tag + iskalnik uporabnikov (lahko ločen vnos ali zavihek “Uporabniki”), 
-javni profil na URL-ju tipa /u/gametag. Brez seznama prijateljev
+@handle + iskalnik uporabnikov (lahko ločen vnos ali zavihek “Uporabniki”), 
+javni profil na URL-ju tipa /u/handle (@handle v UI, v URL brez @). Brez seznama prijateljev
 
 
 ]] NAMEN [[
@@ -9,19 +9,19 @@ javni profil na URL-ju tipa /u/gametag. Brez seznama prijateljev
 Aplikacija omogoča registriranim uporabnikom iskanje filmov prek TMDB, 
 vodenje osebnega watchlista in seznama ogledanih z oceno 1–10, 
 pregled lastne statistike ter ogled javnih, vedno odprtih profilov drugih uporabnikov, 
-kjer so vidni le ogledani filmi in njihove ocene, odkritih prek unikatnega tag-a.
+kjer so vidni le ogledani filmi in njihove ocene, odkritih prek unikatnega @handle.
 
 ]] MSC [[
 
 MUST (obvezno)	
 -Registracija, prijava, odjava; email + geslo; avtentikacija z JWT ali sejo (ena izbrana strategija).
--Unikatni gametag (prikazno/iskalno ime) ob registraciji ali v profilu.
+-Unikatni @handle (v URL /u/handle brez @) ob registraciji ali v profilu.
 -Iskanje filmov prek TMDB z predlogi med tipkanjem (autocomplete/debounce), rezultati in podrobnosti filma.
 -Watchlist: dodaj / odstrani; brez ocene.
 -Watched: film z eno oceno 1–10 na uporabnika; brez večkratnega “ogledanega” zapisa; uredi oceno za isti film.
 -Dva toka v watched: (a) iskanje → dodaj v watched → popup ocena; (b) film na watchlistu → gumb watched → popup ocena → premik v watched.
 -Javni profil je vedno: drugi vidijo samo watched + ocene, ne watchlist.
--Iskanje uporabnikov po gametag-u (ali enakovreden jasen način) in prikaz tujega javnega profila.
+-Iskanje uporabnikov po @handle in prikaz tujega javnega profila.
 -Na osebnem profilu so statistike samo številke: število ogledanih filmov, število ocenjenih filmov, število filmov na watchlistu (want to watch).
 -Full-stack: React, Node.js, relacijska baza.
 -Brez administratorske vloge.

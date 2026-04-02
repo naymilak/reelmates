@@ -22,7 +22,7 @@ function App() {
         <ul className="pill-row" aria-label="Načrtovane funkcionalnosti">
           <li className="pill">Watchlist</li>
           <li className="pill">Ogledano + ocena 1–10</li>
-          <li className="pill">Javni profil (gametag)</li>
+          <li className="pill">Javni profil (@handle)</li>
         </ul>
 
         <section className="grid" aria-label="Osnovni moduli">
@@ -36,7 +36,7 @@ function App() {
           </article>
           <article className="card">
             <h2>Skupnost</h2>
-            <p>Iskanje uporabnikov po gametag-u; tuji profili kažejo le ogledano.</p>
+            <p>Iskanje po @handle; URL profila /u/handle; tuji profili kažejo le ogledano.</p>
           </article>
         </section>
       </main>

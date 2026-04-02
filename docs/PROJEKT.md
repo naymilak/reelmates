@@ -6,14 +6,14 @@
 
 ## Namen
 
-Spletna aplikacija za sledenje filmom. Registrirani uporabnik išče filme prek **TMDB**, jih dodaja na **watchlist** ali med **ogledane** z oceno **1–10**. Vsak uporabnik ima **gametag**; drugi ga poiščejo in na javnem profilu vidijo le **ogledane** filme z ocenami, ne watchlist. Na lastnem profilu so prikazane tri številke: število ogledanih, število ocenjenih (enako številu ogledanih, ker je ocena obvezna) in število naslovov na watchlistu. Uporabniški vmesnik je v **angleščini**.
+Spletna aplikacija za sledenje filmom. Registrirani uporabnik išče filme prek **TMDB**, jih dodaja na **watchlist** ali med **ogledane** z oceno **1–10**. Vsak uporabnik ima javni **@handle**; drugi ga poiščejo in na javnem profilu vidijo le **ogledane** filme z ocenami, ne watchlist. Na lastnem profilu so prikazane tri številke: število ogledanih, število ocenjenih (enako številu ogledanih, ker je ocena obvezna) in število naslovov na watchlistu. Uporabniški vmesnik je v **angleščini**. Handle se v besedilu vedno zapiše s **`@`**; v URL poti je le identifikator brez **`@`**, npr. **`/u/{handle}`**.
 
 ---
 
 ## Funkcionalne zahteve
 
 - **Račun:** registracija, prijava, odjava; email in geslo; avtentikacija z **JWT** ali **sejo** (ena izbrana rešitev).
-- **Gametag:** unikatno javno ime; iskanje uporabnikov; javni profil (npr. pot `/u/{gametag}`).
+- **Handle:** unikatni javni **@handle**; iskanje uporabnikov; javni profil na poti **`/u/{handle}`** (brez znaka `@` v URL).
 - **Filmi:** iskanje in predlogi med tipkanjem (avtomatsko dopolnjevanje, **debounce**); prikaz podrobnosti; podatki iz TMDB.
 - **Watchlist:** dodajanje in odstranjevanje; brez ocene.
 - **Ogledano:** en zapis na uporabnika in film; obvezna ocena 1–10; možnost **spremembe ocene** (brez več vnosov za isti film).
@@ -54,4 +54,4 @@ Odjemalec komunicira z lastnim API-jem; TMDB se kliče samo s strežnika.
 | TMDB | The Movie Database — zunanji vir metapodatkov o filmih. |
 | Watchlist | Seznam naslovov za kasnejši ogled; ni javen. |
 | Ogledano | Naslovi z vpisano oceno; ena ocena na film in uporabnika. |
-| Gametag | Javno iskalno ime uporabnika. |
+| @handle | Javni identifikator; v vmesniku z `@`; v URL samo vrednost (`/u/{handle}`). |

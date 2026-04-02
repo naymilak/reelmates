@@ -6,14 +6,14 @@
 
 ## Purpose
 
-A web application for tracking films. A registered user searches via **TMDB**, adds titles to a **watchlist** or marks them as **watched** with a rating from **1 to 10**. Each user has a **gametag**; others can find them and see **watched** titles and ratings on a public profile, not the watchlist. The user’s own profile shows three counts: watched, rated (equal to watched because a rating is required), and watchlist size. The **user interface is in English**.
+A web application for tracking films. A registered user searches via **TMDB**, adds titles to a **watchlist** or marks them as **watched** with a rating from **1 to 10**. Each user has a public **@handle**; others can find them and see **watched** titles and ratings on a public profile, not the watchlist. The user’s own profile shows three counts: watched, rated (equal to watched because a rating is required), and watchlist size. The **user interface is in English**. In copy, the handle is always written with a leading **`@`**; the profile URL uses the path **`/u/{handle}`** without the `@` character.
 
 ---
 
 ## Functional requirements
 
 - **Account:** sign-up, sign-in, sign-out; email and password; authentication with **JWT** or **session** (one approach chosen for the project).
-- **Gametag:** unique public handle; user search; public profile (e.g. `/u/{gametag}`).
+- **Handle:** unique public **@handle**; user search; public profile at **`/u/{handle}`** (slug only, no `@` in the URL).
 - **Titles:** search with type-ahead suggestions (**debounce**); detail view; data from TMDB.
 - **Watchlist:** add and remove; no rating.
 - **Watched:** one row per user and title; mandatory rating 1–10; **edit rating** only (no duplicate watched entries for the same film).
@@ -54,4 +54,4 @@ The browser talks to the project API only; TMDB is called from the server.
 | TMDB | The Movie Database — external source of film metadata. |
 | Watchlist | Titles to watch later; not visible on the public profile. |
 | Watched | Titles with a rating; one rating per user per title. |
-| Gametag | Public handle for search and profile URL. |
+| @handle | Unique public handle; shown with `@` in the UI; profile route `/u/{handle}` uses the slug without `@`. |
