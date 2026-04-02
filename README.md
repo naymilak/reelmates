@@ -10,9 +10,8 @@
 [![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
 [![Express](https://img.shields.io/badge/Express-5-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
 
-[Documentation / spec](./docs/PROJEKT.md)
+Docs: [**EN**](./docs/PROJECT.md) · [**SL**](./docs/PROJEKT.md)
 
 </div>
 
@@ -48,7 +47,7 @@ flowchart LR
 
 **ReelMates** — spletna aplikacija za sledenje filmom: iskanje (TMDB), osebni watchlist, ogledani naslovi z oceno, javni profili po **gametag-u**. Uporabniški vmesnik je v **angleščini**.
 
-Zagon enak kot zgoraj: `backend` (`npm run dev`), `frontend` (`npm install`, `npm run dev`). Specifikacija: [`docs/PROJEKT.md`](./docs/PROJEKT.md).
+Zagon enak kot zgoraj: `backend` (`npm run dev`), `frontend` (`npm install`, `npm run dev`). Specifikacija: [SL](./docs/PROJEKT.md) / [EN](./docs/PROJECT.md).
 
 </details>
 

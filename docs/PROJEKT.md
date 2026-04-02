@@ -1,54 +1,57 @@
-# ReelMates — kaj sploh delava
+# ReelMates — specifikacija projekta
+
+*Angleška različica:* [PROJECT.md](./PROJECT.md)
+
+---
 
 ## Namen
 
-Spletna app, kjer se folk registrira, išče filme (podatki pridejo iz TMDB), si jih daje na **watchlist** al pa jih označi kot **ogledane** z oceno 1–10. Vsak ima **gametag** — po njem te drugi najdejo in na tvojem javnem profilu vidijo samo **kaj si gledal in kako si ocenil**, ne pa watchlista. Na svojem profilu še tri številke: koliko ogledanih, koliko ocenjenih (pri nas je to praktično isto), koliko jih še čaka na watchlistu.
+Spletna aplikacija za sledenje filmom. Registrirani uporabnik išče filme prek **TMDB**, jih dodaja na **watchlist** ali med **ogledane** z oceno **1–10**. Vsak uporabnik ima **gametag**; drugi ga poiščejo in na javnem profilu vidijo le **ogledane** filme z ocenami, ne watchlist. Na lastnem profilu so prikazane tri številke: število ogledanih, število ocenjenih (enako številu ogledanih, ker je ocena obvezna) in število naslovov na watchlistu. Uporabniški vmesnik je v **angleščini**.
 
 ---
 
-## Specifikacija
+## Funkcionalne zahteve
 
-**Račun:** email + geslo, JWT al pa seja (se odločiva eno).
-
-**Gametag:** unikaten, javno viden, po njem iskanje uporabnikov. URL tipa `/u/gametag` al podobno.
-
-**Filmi:** iskanje čez TMDB, med tipkanjem naj kaže predloge (autocomplete), ne smeš metat requesta ob vsakem znaku — debounce. Podrobnosti filma tud.
-
-**TMDB:** ključ samo na backendu, ne v React bundle. V bazi drživa toliko podatkov, kolikor rabiva za app (id, naslov, slika …), brez kopiranja cele baze in brez čudnih stvari — pogoji uporabe TMDB so online.
-
-**Watchlist:** dodaj / zbriši, brez ocene.
-
-**Watched:** en film = en zapis na userja, obvezna ocena 1–10. Če si film še enkrat pogledaš, samo **urediš oceno**, ne delava več vnosov za isti film.
-
-**Dva načina v watched:**  
-- išči film → dodaj med ogledane → popup za oceno  
-- film je na watchlistu → gumb „ogledano“ → popup za oceno → gre v watched
-
-**Javni profil:** vedno javen. Drugi vidijo samo watched + ocene.
-
-**Brez** sistema prijateljev — samo išči po gametag-u.
-
-**Statistika (v1):** tri številke, brez grafov in zgodovine. Če kdaj razširjava: povprečje, žanri, CSV export, whatever.
-
-**Stack:** React (Vite), Node (Express), PostgreSQL. Brez WebSocketov in real-time stvari.
-
-**Admin panel:** ne.
+- **Račun:** registracija, prijava, odjava; email in geslo; avtentikacija z **JWT** ali **sejo** (ena izbrana rešitev).
+- **Gametag:** unikatno javno ime; iskanje uporabnikov; javni profil (npr. pot `/u/{gametag}`).
+- **Filmi:** iskanje in predlogi med tipkanjem (avtomatsko dopolnjevanje, **debounce**); prikaz podrobnosti; podatki iz TMDB.
+- **Watchlist:** dodajanje in odstranjevanje; brez ocene.
+- **Ogledano:** en zapis na uporabnika in film; obvezna ocena 1–10; možnost **spremembe ocene** (brez več vnosov za isti film).
+- **Toka v ogledano:** (1) iskanje → dodaj med ogledane → obrazec za oceno; (2) naslov na watchlistu → oznaka kot ogledano → obrazec za oceno → premik v seznam ogledanih.
+- **Javni profil:** vedno javen; za tujce samo ogledano z ocenami.
+- **Brez** sistema prijateljev in **brez** skrbniške (admin) vloge.
 
 ---
 
-## Še malo tehničnega
+## Zunanji vmesnik (TMDB)
 
-- Geslo hashat, CORS za frontend, normalna validacija.
-- Če TMDB crkne al rate limit: sporočilo uporabniku, po možnosti cache v DB.
-- Kasneje: par testov za pomembne API route.
-
-**Arhitektura:** browser → naš API → baza; TMDB kličeva samo s strežnika.
+API ključ se hrani **izključno na strežniku**; odjemalec ga ne sme prejeti. Klici TMDB naj bodo omejeni (debounce, obravnava napak in omejitev števila zahtevkov). V lastni bazi se shranjujejo le podatki, potrebni za delovanje aplikacije, v skladu s pogoji uporabe TMDB.
 
 ---
 
-## Pojmi (če kdo ne ve)
+## Tehnologija in arhitektura
 
-- **TMDB** — The Movie Database, zunanji API za filme.
-- **Watchlist** — „hočem gledat“, skrito pred drugimi.
-- **Watched** — gledano + ocena.
-- **Gametag** — javno ime za profil.
+- **Frontend:** React (Vite), TypeScript.
+- **Backend:** Node.js (Express), REST API.
+- **Podatkovna baza:** PostgreSQL.
+- **Brez** real-time komunikacije (npr. WebSocket).
+
+Odjemalec komunicira z lastnim API-jem; TMDB se kliče samo s strežnika.
+
+---
+
+## Varnost in kakovost
+
+- Gesla se shranjujejo z zgoščevanjem; smiselna validacija vhodov; CORS nastavljen za frontend.
+- Ob napaki TMDB uporabnik prejme razumljivo sporočilo.
+
+---
+
+## Slovar
+
+| Izraz | Pomen |
+|--------|--------|
+| TMDB | The Movie Database — zunanji vir metapodatkov o filmih. |
+| Watchlist | Seznam naslovov za kasnejši ogled; ni javen. |
+| Ogledano | Naslovi z vpisano oceno; ena ocena na film in uporabnika. |
+| Gametag | Javno iskalno ime uporabnika. |
