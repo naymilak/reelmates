@@ -9,7 +9,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
 [![Express](https://img.shields.io/badge/Express-5-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 
 Docs: [**EN**](./docs/PROJECT.md) · [**SL**](./docs/PROJEKT.md)
 
@@ -19,9 +19,20 @@ Docs: [**EN**](./docs/PROJECT.md) · [**SL**](./docs/PROJEKT.md)
 
 ## Quick start
 
-| Service | Command | URL |
-|--------|---------|-----|
-| UI | `cd frontend && npm install && npm run dev` | http://localhost:5173 |
+1. **Database** (MongoDB on port **27018** — avoids conflict with local MongoDB on 27017): `docker compose up -d`
+2. **Backend**: copy `backend/.env.example` → `backend/.env`, add your [TMDB API key](https://www.themoviedb.org/settings/api), then:
+   ```bash
+   cd backend && npm install && npm run dev
+   ```
+3. **Frontend**:
+   ```bash
+   cd frontend && npm install && npm run dev
+   ```
+
+| Service | URL |
+|--------|-----|
+| UI | http://localhost:5173 |
+| API | http://localhost:3001 |
 
 
 ---
