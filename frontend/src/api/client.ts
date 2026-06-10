@@ -34,6 +34,25 @@ export const api = {
       request<{ user: User }>('/auth/register', { method: 'POST', body: JSON.stringify(body) }),
     logout: () => request<{ ok: boolean }>('/auth/logout', { method: 'POST' }),
   },
+  movies: {
+    search: (q: string) =>
+      request<{ results: MovieSummary[] }>(`/movies/search?q=${encodeURIComponent(q)}`),
+    get: (tmdbId: number) => request<{ movie: MovieDetail }>(`/movies/${tmdbId}`),
+  },
 };
 
 export type User = { id: string; email: string; handle: string };
+
+export type MovieSummary = {
+  tmdbId: number;
+  title: string;
+  posterPath: string | null;
+  posterUrl: string | null;
+  releaseYear: number | null;
+  overview: string;
+};
+
+export type MovieDetail = MovieSummary & {
+  runtime: number | null;
+  genres: string[];
+};

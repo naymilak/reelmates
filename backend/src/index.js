@@ -9,6 +9,7 @@ const { ensureIndexes } = require('./db/indexes');
 const { errorHandler } = require('./middleware/error');
 
 const authRoutes = require('./routes/auth');
+const moviesRoutes = require('./routes/movies');
 
 const PORT = process.env.PORT || 3001;
 
@@ -54,6 +55,7 @@ async function createApp() {
   });
 
   app.use('/api/auth', authRoutes);
+  app.use('/api/movies', moviesRoutes);
 
   app.use(errorHandler);
 

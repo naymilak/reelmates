@@ -12,6 +12,7 @@ export function Layout() {
             ReelMates
           </Link>
           <nav className="nav" aria-label="Main navigation">
+            <Link to="/search">Search</Link>
             {user ? (
               <>
                 <Link to="/profile">@{user.handle}</Link>
@@ -36,7 +37,7 @@ export function Layout() {
       </main>
 
       <footer className="footer">
-        <small>Track what you watch — create an account to get started.</small>
+        <small>Track what you watch — search films via TMDB.</small>
       </footer>
     </div>
   );

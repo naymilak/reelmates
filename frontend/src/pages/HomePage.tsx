@@ -8,18 +8,25 @@ export function HomePage() {
     <>
       <h1>Your movie tracker</h1>
       <p className="lead">
-        Create an account with email and password, pick a unique @handle, and sign in with a
-        server-side session. Movie search and lists come in a later step.
+        Search films via TMDB with type-ahead suggestions. Sign in to save lists and ratings in a
+        later step.
       </p>
       <ul className="pill-row">
-        <li className="pill">Sign up</li>
-        <li className="pill">Sign in</li>
-        <li className="pill">@handle</li>
+        <li className="pill">TMDB search</li>
+        <li className="pill">Movie details</li>
+        <li className="pill">@handle account</li>
       </ul>
       <section className="grid">
         <article className="card">
-          <h2>Sign up</h2>
-          <p>Register with email, password, and a public @handle.</p>
+          <h2>Search</h2>
+          <p>Type-ahead movie search powered by TMDB.</p>
+          <Link to="/search" className="card-link">
+            Find movies →
+          </Link>
+        </article>
+        <article className="card">
+          <h2>Account</h2>
+          <p>Register or sign in with email, password, and a public @handle.</p>
           {user ? (
             <Link to="/profile" className="card-link">
               My profile →
@@ -31,17 +38,10 @@ export function HomePage() {
           )}
         </article>
         <article className="card">
-          <h2>Sign in</h2>
-          <p>Return with your email and password. Sessions are stored in MongoDB.</p>
-          <Link to="/login" className="card-link">
-            Sign in →
-          </Link>
-        </article>
-        <article className="card">
-          <h2>Your profile</h2>
-          <p>After signing in, view your account and @handle on your profile page.</p>
-          <Link to={user ? '/profile' : '/register'} className="card-link">
-            {user ? 'Open profile →' : 'Get started →'}
+          <h2>Coming next</h2>
+          <p>Watchlist, watched titles, and ratings will be added in the next update.</p>
+          <Link to="/search" className="card-link">
+            Browse movies →
           </Link>
         </article>
       </section>
