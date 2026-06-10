@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { api, ApiError, type MovieListItem, type ProfileStats } from '../api/client';
-import { MovieCard } from '../components/MovieCard';
+import { MoviesByGenre } from '../components/MoviesByGenre';
 import { RatingModal } from '../components/RatingModal';
 import { useAuth } from '../context/AuthContext';
 
@@ -65,53 +65,36 @@ export function ProfilePage() {
 
       <section className="section">
         <h2>Watchlist</h2>
-        {watchlist.length === 0 ? (
-          <p className="muted">Nothing on your watchlist yet.</p>
-        ) : (
-          <div className="movie-grid">
-            {watchlist.map((movie) => (
-              <MovieCard
-                key={movie.tmdbId}
-                movie={movie}
-                actions={
-                  <button
-                    type="button"
-                    className="btn small primary"
-                    onClick={() => setRatingMovie(movie)}
-                  >
-                    Mark watched
-                  </button>
-                }
-              />
-            ))}
-          </div>
-        )}
+        <MoviesByGenre
+          movies={watchlist}
+          emptyMessage="Nothing on your watchlist yet."
+          renderActions={(movie) => (
+            <button
+              type="button"
+              className="btn small primary"
+              onClick={() => setRatingMovie(movie)}
+            >
+              Mark watched
+            </button>
+          )}
+        />
       </section>
 
       <section className="section">
         <h2>Watched</h2>
-        {watched.length === 0 ? (
-          <p className="muted">No watched movies yet.</p>
-        ) : (
-          <div className="movie-grid">
-            {watched.map((movie) => (
-              <MovieCard
-                key={movie.tmdbId}
-                movie={movie}
-                rating={movie.rating}
-                actions={
-                  <button
-                    type="button"
-                    className="btn small secondary"
-                    onClick={() => setRatingMovie(movie)}
-                  >
-                    Edit rating
-                  </button>
-                }
-              />
-            ))}
-          </div>
-        )}
+        <MoviesByGenre
+          movies={watched}
+          emptyMessage="No watched movies yet."
+          renderActions={(movie) => (
+            <button
+              type="button"
+              className="btn small secondary"
+              onClick={() => setRatingMovie(movie)}
+            >
+              Edit rating
+            </button>
+          )}
+        />
       </section>
 
       {ratingMovie && (

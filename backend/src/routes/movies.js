@@ -7,6 +7,36 @@ const router = express.Router();
 
 router.use(attachUserId);
 
+const HOME_GENRES = [
+  { name: 'Action', id: 28 },
+  { name: 'Comedy', id: 35 },
+  { name: 'Drama', id: 18 },
+  { name: 'Horror', id: 27 },
+  { name: 'Science Fiction', id: 878 },
+  { name: 'Romance', id: 10749 },
+];
+
+router.get('/home-by-genre', async (_req, res, next) => {
+  try {
+    const sections = await Promise.all(
+      HOME_GENRES.map(async ({ name, id }) => {
+        const page = Math.floor(Math.random() * 5) + 1;
+        const movies = await tmdb.discoverByGenre(id, page);
+        return {
+          genre: name,
+          movies: movies.map((m) => ({
+            ...m,
+            posterUrl: tmdb.posterUrl(m.posterPath),
+          })),
+        };
+      })
+    );
+    res.json({ sections });
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get('/search', async (req, res, next) => {
   try {
     const q = String(req.query.q || '').trim();

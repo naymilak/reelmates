@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { api, ApiError, type PublicProfile } from '../api/client';
-import { MovieCard } from '../components/MovieCard';
+import { MoviesByGenre } from '../components/MoviesByGenre';
 
 export function PublicProfilePage() {
   const { handle } = useParams();
@@ -42,15 +42,7 @@ export function PublicProfilePage() {
           <span>Rated</span>
         </li>
       </ul>
-      {profile.watched.length === 0 ? (
-        <p className="muted">No watched movies yet.</p>
-      ) : (
-        <div className="movie-grid">
-          {profile.watched.map((movie) => (
-            <MovieCard key={movie.tmdbId} movie={movie} rating={movie.rating} />
-          ))}
-        </div>
-      )}
+      <MoviesByGenre movies={profile.watched} emptyMessage="No watched movies yet." />
     </>
   );
 }

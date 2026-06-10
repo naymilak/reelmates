@@ -14,6 +14,7 @@ async function upsertMovieFromTmdb(tmdbId) {
         posterPath: detail.posterPath,
         releaseYear: detail.releaseYear,
         overview: detail.overview,
+        genres: detail.genres, // dodal se žanre za brskanje
         updatedAt: now,
       },
       $setOnInsert: { createdAt: now },
@@ -35,6 +36,7 @@ function docToMovie(doc) {
     overview: doc.overview ?? '',
     rating: doc.rating ?? undefined,
     watchedAt: doc.watchedAt?.toISOString?.() ?? doc.watchedAt ?? undefined,
+    genres: doc.genres ?? [], // dodal se žanre za brskanje
     addedAt: doc.addedAt?.toISOString?.() ?? doc.addedAt ?? undefined,
   };
 }

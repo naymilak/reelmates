@@ -38,6 +38,8 @@ export const api = {
     search: (q: string) =>
       request<{ results: MovieSummary[] }>(`/movies/search?q=${encodeURIComponent(q)}`),
     get: (tmdbId: number) => request<{ movie: MovieDetail }>(`/movies/${tmdbId}`),
+    homeByGenre: () =>
+      request<{ sections: GenreSection[] }>('/movies/home-by-genre'),
   },
   me: {
     profile: () => request<{ user: User; stats: ProfileStats }>('/me/profile'),
@@ -76,6 +78,11 @@ export type ProfileStats = {
   watchlistCount: number;
 };
 
+export type GenreSection = {
+  genre: string;
+  movies: MovieSummary[];
+};
+
 export type MovieSummary = {
   tmdbId: number;
   title: string;
@@ -96,6 +103,7 @@ export type MovieListItem = MovieSummary & {
   rating?: number;
   watchedAt?: string;
   addedAt?: string;
+  genres: string[];
 };
 
 export type PublicProfile = {

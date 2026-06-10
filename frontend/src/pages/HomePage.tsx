@@ -1,18 +1,37 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { api, ApiError, type GenreSection } from '../api/client';
+import { MovieCard } from '../components/MovieCard';
 import { useAuth } from '../context/AuthContext';
 
 export function HomePage() {
   const { user } = useAuth();
+  const [sections, setSections] = useState<GenreSection[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    setLoading(true);
+    setError('');
+    api.movies
+      .homeByGenre()
+      .then((data) => setSections(data.sections))
+      .catch((err) => {
+        setSections([]);
+        setError(err instanceof ApiError ? err.message : 'Could not load movies.');
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <>
       <h1>Your movie tracker</h1>
       <p className="lead">
-        Search films via TMDB, build a watchlist, mark what you have watched, and rate titles
-        from 1 to 10. Share your watched list on a public profile — no streaming here.
+        Browse popular films by genre, build a watchlist, mark what you have watched, and rate
+        titles from 1 to 10 — powered by TMDB.
       </p>
       <ul className="pill-row">
-        <li className="pill">Watchlist</li>
+        <li className="pill">Browse by genre</li>
         <li className="pill">Watched + rating</li>
         <li className="pill">Public @handle</li>
       </ul>
@@ -44,6 +63,33 @@ export function HomePage() {
             Find users →
           </Link>
         </article>
+      </section>
+
+      <section className="section">
+        <h2>Browse by genre</h2>
+        <p className="muted section-note">Popular picks from TMDB — refresh for a new mix.</p>
+        {loading && <p className="muted">Loading movies…</p>}
+        {error && <p className="form-error">{error}</p>}
+        {!loading && !error && (
+          <div className="genre-groups">
+            {sections.map(({ genre, movies }) => (
+              <div key={genre} className="genre-group">
+                <h3 className="genre-heading">
+                  {genre} <span className="genre-count">({movies.length})</span>
+                </h3>
+                {movies.length === 0 ? (
+                  <p className="muted">No titles for this genre right now.</p>
+                ) : (
+                  <div className="movie-scroll">
+                    {movies.map((movie) => (
+                      <MovieCard key={movie.tmdbId} movie={movie} />
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </section>
     </>
   );

@@ -385,10 +385,59 @@
   font-size: 1.15rem;
 }
 
+.section-note {
+  margin: -0.5rem 0 1.25rem;
+  font-size: 0.9rem;
+}
+
+.genre-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.genre-heading {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f5c84c;
+}
+
+.genre-count {
+  font-weight: 400;
+  color: rgba(232, 230, 237, 0.55);
+}
+
 .movie-grid {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+
+.movie-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.35rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245, 200, 76, 0.35) transparent;
+}
+
+.movie-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.movie-scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(245, 200, 76, 0.35);
+}
+
+.movie-scroll .movie-card {
+  flex: 0 0 160px;
+  scroll-snap-align: start;
 }
 
 .movie-card {

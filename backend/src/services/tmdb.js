@@ -84,9 +84,19 @@ async function getMovieDetails(tmdbId) {
   return mapMovieDetail(data);
 }
 
+async function discoverByGenre(genreId, page = 1) {
+  const data = await tmdbFetch('/discover/movie', {
+    with_genres: genreId,
+    sort_by: 'popularity.desc',
+    page,
+  });
+  return (data.results || []).slice(0, 8).map(mapSearchResult);
+}
+
 module.exports = {
   searchMovies,
   getMovieDetails,
+  discoverByGenre,
   posterUrl,
   mapSearchResult,
 };
