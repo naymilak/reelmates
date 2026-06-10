@@ -10,6 +10,8 @@ const { errorHandler } = require('./middleware/error');
 
 const authRoutes = require('./routes/auth');
 const moviesRoutes = require('./routes/movies');
+const usersRoutes = require('./routes/users');
+const meRoutes = require('./routes/me');
 
 const PORT = process.env.PORT || 3001;
 
@@ -56,6 +58,8 @@ async function createApp() {
 
   app.use('/api/auth', authRoutes);
   app.use('/api/movies', moviesRoutes);
+  app.use('/api/users', usersRoutes);
+  app.use('/api/me', meRoutes);
 
   app.use(errorHandler);
 

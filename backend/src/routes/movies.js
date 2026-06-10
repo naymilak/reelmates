@@ -1,7 +1,11 @@
 const express = require('express');
 const tmdb = require('../services/tmdb');
+const { attachUserId } = require('../middleware/auth');
+const { collections, toObjectId } = require('../db/mongo');
 
 const router = express.Router();
+
+router.use(attachUserId);
 
 router.get('/search', async (req, res, next) => {
   try {
@@ -26,12 +30,23 @@ router.get('/:tmdbId', async (req, res, next) => {
     }
 
     const detail = await tmdb.getMovieDetails(tmdbId);
-    res.json({
-      movie: {
-        ...detail,
-        posterUrl: tmdb.posterUrl(detail.posterPath, 'w500'),
-      },
-    });
+    const payload = {
+      ...detail,
+      posterUrl: tmdb.posterUrl(detail.posterPath, 'w500'),
+    };
+
+    const userId = toObjectId(req.userId);
+    if (userId) {
+      const { watchlist, watched } = collections();
+      const [onWatchlist, watchedDoc] = await Promise.all([
+        watchlist.findOne({ userId, tmdbId }),
+        watched.findOne({ userId, tmdbId }, { projection: { rating: 1 } }),
+      ]);
+      payload.onWatchlist = Boolean(onWatchlist);
+      payload.watched = watchedDoc ? { rating: watchedDoc.rating } : null;
+    }
+
+    res.json({ movie: payload });
   } catch (err) {
     next(err);
   }
