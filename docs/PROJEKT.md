@@ -32,7 +32,7 @@ API ključ se hrani **izključno na strežniku**; V lastni bazi se shranjujejo l
 
 - **Frontend:** React (Vite), TypeScript.
 - **Backend:** Node.js (Express), REST API.
-- **Podatkovna baza:** PostgreSQL.
+- **Podatkovna baza:** MongoDB.
 
 
 ---

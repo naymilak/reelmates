@@ -34,6 +34,81 @@ export const api = {
       request<{ user: User }>('/auth/register', { method: 'POST', body: JSON.stringify(body) }),
     logout: () => request<{ ok: boolean }>('/auth/logout', { method: 'POST' }),
   },
+  movies: {
+    search: (q: string) =>
+      request<{ results: MovieSummary[] }>(`/movies/search?q=${encodeURIComponent(q)}`),
+    get: (tmdbId: number) => request<{ movie: MovieDetail }>(`/movies/${tmdbId}`),
+    homeByGenre: () =>
+      request<{ sections: GenreSection[] }>('/movies/home-by-genre'),
+  },
+  me: {
+    profile: () => request<{ user: User; stats: ProfileStats }>('/me/profile'),
+    watchlist: () => request<{ items: MovieListItem[] }>('/me/watchlist'),
+    addWatchlist: (tmdbId: number) =>
+      request<{ ok: boolean }>(`/me/watchlist/${tmdbId}`, { method: 'POST' }),
+    removeWatchlist: (tmdbId: number) =>
+      request<{ ok: boolean }>(`/me/watchlist/${tmdbId}`, { method: 'DELETE' }),
+    watched: () => request<{ items: MovieListItem[] }>('/me/watched'),
+    markWatched: (tmdbId: number, rating: number, fromWatchlist = false) =>
+      request<{ ok: boolean }>(`/me/watched/${tmdbId}`, {
+        method: 'POST',
+        body: JSON.stringify({ rating, fromWatchlist }),
+      }),
+    updateRating: (tmdbId: number, rating: number) =>
+      request<{ rating: number }>(`/me/watched/${tmdbId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ rating }),
+      }),
+    removeWatched: (tmdbId: number) =>
+      request<{ ok: boolean }>(`/me/watched/${tmdbId}`, { method: 'DELETE' }),
+  },
+  users: {
+    search: (q: string) =>
+      request<{ users: { handle: string }[] }>(`/users/search?q=${encodeURIComponent(q)}`),
+    publicProfile: (handle: string) =>
+      request<{ profile: PublicProfile }>(`/users/${encodeURIComponent(handle)}`),
+  },
 };
 
 export type User = { id: string; email: string; handle: string };
+
+export type ProfileStats = {
+  watchedCount: number;
+  ratedCount: number;
+  watchlistCount: number;
+};
+
+export type GenreSection = {
+  genre: string;
+  movies: MovieSummary[];
+};
+
+export type MovieSummary = {
+  tmdbId: number;
+  title: string;
+  posterPath: string | null;
+  posterUrl: string | null;
+  releaseYear: number | null;
+  overview: string;
+};
+
+export type MovieDetail = MovieSummary & {
+  runtime: number | null;
+  genres: string[];
+  onWatchlist?: boolean;
+  watched?: { rating: number } | null;
+};
+
+export type MovieListItem = MovieSummary & {
+  rating?: number;
+  watchedAt?: string;
+  addedAt?: string;
+  genres: string[];
+};
+
+export type PublicProfile = {
+  handle: string;
+  watchedCount: number;
+  ratedCount: number;
+  watched: MovieListItem[];
+};
