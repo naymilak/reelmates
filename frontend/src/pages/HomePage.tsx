@@ -8,13 +8,13 @@ export function HomePage() {
     <>
       <h1>Your movie tracker</h1>
       <p className="lead">
-        Search films via TMDB with type-ahead suggestions. Sign in to save lists and ratings in a
-        later step.
+        Search films via TMDB, build a watchlist, mark what you have watched, and rate titles
+        from 1 to 10. Share your watched list on a public profile — no streaming here.
       </p>
       <ul className="pill-row">
-        <li className="pill">TMDB search</li>
-        <li className="pill">Movie details</li>
-        <li className="pill">@handle account</li>
+        <li className="pill">Watchlist</li>
+        <li className="pill">Watched + rating</li>
+        <li className="pill">Public @handle</li>
       </ul>
       <section className="grid">
         <article className="card">
@@ -25,8 +25,8 @@ export function HomePage() {
           </Link>
         </article>
         <article className="card">
-          <h2>Account</h2>
-          <p>Register or sign in with email, password, and a public @handle.</p>
+          <h2>Your lists</h2>
+          <p>Watchlist without ratings; watched with a single 1–10 score per film.</p>
           {user ? (
             <Link to="/profile" className="card-link">
               My profile →
@@ -38,10 +38,10 @@ export function HomePage() {
           )}
         </article>
         <article className="card">
-          <h2>Coming next</h2>
-          <p>Watchlist, watched titles, and ratings will be added in the next update.</p>
-          <Link to="/search" className="card-link">
-            Browse movies →
+          <h2>Community</h2>
+          <p>Find users by @handle. Their watchlist stays private.</p>
+          <Link to="/users" className="card-link">
+            Find users →
           </Link>
         </article>
       </section>

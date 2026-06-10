@@ -32,7 +32,7 @@ The API key is stored **only on the server**; The database stores only data requ
 
 - **Frontend:** React (Vite), TypeScript.
 - **Backend:** Node.js (Express), REST API.
-- **Database:** PostgreSQL.
+- **Database:** MongoDB.
 
 ---
 

@@ -13,6 +13,7 @@ export function Layout() {
           </Link>
           <nav className="nav" aria-label="Main navigation">
             <Link to="/search">Search</Link>
+            <Link to="/users">Users</Link>
             {user ? (
               <>
                 <Link to="/profile">@{user.handle}</Link>
@@ -37,7 +38,7 @@ export function Layout() {
       </main>
 
       <footer className="footer">
-        <small>Track what you watch — search films via TMDB.</small>
+        <small>Track what you watch — no streaming, just your lists and ratings.</small>
       </footer>
     </div>
   );
